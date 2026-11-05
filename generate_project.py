@@ -57,6 +57,7 @@ file_refs += "\n".join(
 )
 file_refs += (
     f'\n\t\t{uid("fr:Assets")} /* Assets.xcassets */ = {{isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; }};'
+    f'\n\t\t{uid("fr:Entitlements")} /* {APP}.entitlements */ = {{isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = {APP}.entitlements; sourceTree = "<group>"; }};'
     f'\n\t\t{uid("fr:Preview")} /* Preview Assets.xcassets */ = {{isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; }};'
 )
 
@@ -117,6 +118,7 @@ PROJECT_SETTINGS = """\
 TARGET_SETTINGS = f"""\
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = {APP}/{APP}.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\\"{APP}/Preview Content\\"";
@@ -192,6 +194,7 @@ pbxproj = f"""// !$*UTF8*$!
 				{uid('group:models')} /* Models */,
 				{uid('group:views')} /* Views */,
 				{uid('fr:Assets')} /* Assets.xcassets */,
+				{uid('fr:Entitlements')} /* {APP}.entitlements */,
 				{uid('group:preview')} /* Preview Content */,
 			);
 			path = {APP};

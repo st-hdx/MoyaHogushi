@@ -37,6 +37,7 @@ struct SettingsView: View {
         Form {
             proSection
             reminderSection
+            SyncSection(sync: store.sync)
             dataSection
             aboutSection
             #if DEBUG
@@ -149,7 +150,7 @@ struct SettingsView: View {
         } header: {
             Text("データ")
         } footer: {
-            Text("記録はこの端末の中だけに保存されます。アプリを削除すると消えるので、大切な記録は書き出しておくと安心です。")
+            Text("書き出した内容は、共有先に選んだアプリやサービスに渡ります。")
         }
     }
 
@@ -196,5 +197,40 @@ struct SettingsView: View {
             restoreMessage = (error as? LocalizedError)?.errorDescription ?? "購入の復元に失敗しました。"
         }
         isRestoring = false
+    }
+}
+
+private struct SyncSection: View {
+    @ObservedObject var sync: CloudSync
+
+    private var statusText: String? {
+        switch sync.status {
+        case .off: return nil
+        case .unavailable: return "iCloudにサインインしていないか、このアプリのiCloudが許可されていません。"
+        case .syncing: return "同期しています…"
+        case .synced(let date): return "最終同期 " + date.formatted(date: .omitted, time: .shortened)
+        }
+    }
+
+    var body: some View {
+        Section {
+            Toggle("iCloudで同期", isOn: Binding(
+                get: { sync.isEnabled },
+                set: { sync.setEnabled($0) }
+            ))
+            .tint(Theme.accent)
+            .listRowBackground(Theme.card)
+
+            if let statusText = statusText {
+                Text(statusText)
+                    .font(.footnote)
+                    .foregroundColor(Theme.secondaryText)
+                    .listRowBackground(Theme.card)
+            }
+        } header: {
+            Text("同期")
+        } footer: {
+            Text("オンにすると、記録があなたのiCloudにも保存され、同じApple IDの端末で引き継げます。開発者が記録を見ることはできません。オフでも記録はこの端末に残ります。")
+        }
     }
 }
