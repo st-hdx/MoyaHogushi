@@ -1,10 +1,18 @@
 # もやほぐし (MoyaHogushi)
 
 もやもやを「書く → 感じる → 考える → 手放す」の4ステップで整理する iPhone アプリ。
-SwiftUI / iOS 16+ / 外部ライブラリなし / データは端末内の JSON のみ(通信なし)。
+SwiftUI / iOS 16+ / 外部ライブラリは RevenueCat のみ(課金用) / 記録は端末内の JSON にのみ保存し、サーバーには送らない。
 
 ## 状態
-無料版コアのみ。まだ Xcode でビルドしていない(執筆環境に Xcode がなかったため)。最初のビルドで型エラーが出たら修正すること。
+無料版コアと、Pro(サブスク)の実装まで入っている。まだ Xcode でビルドしていない(執筆環境に Xcode がなかったため)。最初のビルドで型エラーが出たら修正すること。
+
+| | 無料 | Pro |
+|---|---|---|
+| 書く→手放す | ○ | ○ |
+| 記録の閲覧 | 直近10件 | すべて |
+| 週のふりかえり(傾向) | - | ○ |
+| 毎日のリマインド通知 | - | ○ |
+| 記録のテキスト書き出し | - | ○ |
 
 ## 開き方
 ```
@@ -21,7 +29,13 @@ Bundle ID は `com.pandagiken.moyahogushi.app`、Team は他アプリと同じ�
 - `Views/FogView.swift` : 漂う霧。ステップが進むと薄くなり、手放すと消える
 - `Views/HomeView.swift` / `JournalView.swift` : ホームと記録一覧(決めた一歩のチェック付き)
 
-## 次にやること(課金まわり)
-1. RevenueCat を BloomJournal と同じ構成で導入(`PurchaseManager` / `PaywallView` を参考にする)
-2. 無料は直近の記録のみ、有料で長期振り返り・リマインド通知・ウィジェット・エクスポートを解放
-3. iCloud(CloudKit)同期
+## 公開前にやること
+1. RevenueCat でアプリを作り、公開APIキーを `Models/PurchaseManager.swift` の `apiKey` に入れる(未設定でも無料版として動く)
+2. App Store Connect で月額・年額のサブスクを作り、RevenueCat の Entitlement `MoyaHogushi Pro` と Offering(月額・年額パッケージ)に紐づける
+3. `docs/privacy.html` を公開し、`Models/AppLinks.swift` の URL が開けることを確認する
+4. 実機/Sandbox で購入・復元・キャンセル、通知の許可と拒否を確認する
+5. iCloud(CloudKit)同期は未実装。端末を変えると記録が引き継がれないため、課金後の不満になりやすい
+
+## 開発メモ
+- Debug ビルドでは設定画面の「開発用」トグルで Pro を切り替えられる(RevenueCat 未設定でも Pro 画面を確認できる)
+- Pro が切れたら、予約済みのリマインドは起動時に自動で解除される

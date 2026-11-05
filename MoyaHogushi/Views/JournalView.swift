@@ -2,6 +2,12 @@ import SwiftUI
 
 struct JournalView: View {
     @EnvironmentObject private var store: MoyaStore
+    @EnvironmentObject private var purchase: PurchaseManager
+    @State private var showPaywall = false
+
+    private var visibleEntries: [MoyaEntry] {
+        purchase.isPro ? store.entries : Array(store.entries.prefix(PurchaseManager.freeEntryLimit))
+    }
 
     var body: some View {
         ZStack {
@@ -21,8 +27,11 @@ struct JournalView: View {
                 ScrollView {
                     LazyVStack(spacing: 12) {
                         StatsRow()
-                        ForEach(store.entries) { entry in
+                        ForEach(visibleEntries) { entry in
                             EntryCard(entry: entry)
+                        }
+                        if visibleEntries.count < store.entries.count {
+                            lockedCard(hiddenCount: store.entries.count - visibleEntries.count)
                         }
                     }
                     .padding(.horizontal, 20)
@@ -33,6 +42,33 @@ struct JournalView: View {
         .navigationTitle("記録")
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(Theme.background, for: .navigationBar)
+        .sheet(isPresented: $showPaywall) {
+            PaywallView().environmentObject(purchase)
+        }
+    }
+
+    private func lockedCard(hiddenCount: Int) -> some View {
+        Button { showPaywall = true } label: {
+            VStack(spacing: 8) {
+                Image(systemName: "lock.fill")
+                    .foregroundColor(Theme.accent)
+                Text("さらに\(hiddenCount)件の記録があります")
+                    .font(.system(.subheadline, design: .rounded).weight(.semibold))
+                    .foregroundColor(Theme.text)
+                Text("Proで、これまでの記録をすべてさかのぼれます")
+                    .font(.system(.caption, design: .rounded))
+                    .foregroundColor(Theme.secondaryText)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(20)
+            .background(Theme.accentSoft)
+            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                    .stroke(Theme.accent.opacity(0.5), lineWidth: 1)
+            )
+        }
+        .buttonStyle(.plain)
     }
 }
 

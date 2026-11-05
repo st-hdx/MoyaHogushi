@@ -9,28 +9,43 @@
 /* Begin PBXBuildFile section */
 		AF4ABEB1C345BA26D697998E /* MoyaHogushiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E292EBF44A8B064C13306E /* MoyaHogushiApp.swift */; };
 		26476FDFAA217D278D1D5FC3 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EDC602F01BE01A37E8A7C4 /* Theme.swift */; };
+		6839A6AA23D9F1CA05FB9647 /* AppLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7409FA6F4CCE45F231E71023 /* AppLinks.swift */; };
+		A2B28E10E8C62CFDCF6EDB2B /* Insights.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65F2F96EFEB2F01DF1D759B /* Insights.swift */; };
 		B0E8B13736AB8A6E4933C7DB /* MoyaEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C152A510DF4595467A1D05AA /* MoyaEntry.swift */; };
 		F45E4877E7778D868A2DF74B /* MoyaStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D0924B6D8FD390A88CBC38 /* MoyaStore.swift */; };
+		9D273DE2DFDBCEAA60334B92 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B73220CF6CBC96E9F23CD1C /* PurchaseManager.swift */; };
+		3CC6215D59F36F767FCA2BCB /* ReminderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA20DFCB69C88806B1919DD /* ReminderManager.swift */; };
 		91D769D935BD55CC3C62A391 /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A50E46C1004DFD6DE3FB53 /* FlowLayout.swift */; };
 		5C69728111E29900DDD3B105 /* FlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7B844DF7B04126E12948BC /* FlowView.swift */; };
 		C548E09E5A9A74BF044B5504 /* FogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA43ED3C5B2CA6F1E0AE5A4D /* FogView.swift */; };
 		4BF640CACDD67D8FCBC6A2FB /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58717FB39EBDD3771665E2F1 /* HomeView.swift */; };
+		7A700D286993323000A097C8 /* InsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EAEE77437575DCCC87EA80 /* InsightsView.swift */; };
 		EC28A6F1DE80300C8D67618F /* JournalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8487AC3F38AAF4D75C25B6E9 /* JournalView.swift */; };
+		97EDDC40C0E8E0F5D754344A /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB5489E4395CFA4547A9E04 /* PaywallView.swift */; };
+		D21A26D827C6ED2E1003D581 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FFE31750D8ADFE2498AEA4 /* SettingsView.swift */; };
 		67FB9D6CDA0AA4A2238ED7CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A84B6AC6E4588B9D7C1EFE2 /* Assets.xcassets */; };
 		5B6CA05334847A4ECC3FD6F9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34F25C1A1C704F8B1762B68F /* Preview Assets.xcassets */; };
+		CD2BA4393F957CA901CD340A /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = D0DA94B54A9D3ED9CDA64C2B /* RevenueCat */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		611FF1D52FBAA2AA25A865DA /* MoyaHogushi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoyaHogushi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66E292EBF44A8B064C13306E /* MoyaHogushiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaHogushiApp.swift; sourceTree = "<group>"; };
 		43EDC602F01BE01A37E8A7C4 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		7409FA6F4CCE45F231E71023 /* AppLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLinks.swift; sourceTree = "<group>"; };
+		B65F2F96EFEB2F01DF1D759B /* Insights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Insights.swift; sourceTree = "<group>"; };
 		C152A510DF4595467A1D05AA /* MoyaEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaEntry.swift; sourceTree = "<group>"; };
 		93D0924B6D8FD390A88CBC38 /* MoyaStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaStore.swift; sourceTree = "<group>"; };
+		8B73220CF6CBC96E9F23CD1C /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
+		3DA20DFCB69C88806B1919DD /* ReminderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderManager.swift; sourceTree = "<group>"; };
 		94A50E46C1004DFD6DE3FB53 /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
 		1D7B844DF7B04126E12948BC /* FlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowView.swift; sourceTree = "<group>"; };
 		FA43ED3C5B2CA6F1E0AE5A4D /* FogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FogView.swift; sourceTree = "<group>"; };
 		58717FB39EBDD3771665E2F1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		97EAEE77437575DCCC87EA80 /* InsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsView.swift; sourceTree = "<group>"; };
 		8487AC3F38AAF4D75C25B6E9 /* JournalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalView.swift; sourceTree = "<group>"; };
+		CEB5489E4395CFA4547A9E04 /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
+		72FFE31750D8ADFE2498AEA4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8A84B6AC6E4588B9D7C1EFE2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		34F25C1A1C704F8B1762B68F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -40,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD2BA4393F957CA901CD340A /* RevenueCat in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,8 +94,12 @@
 		D199451F475AECB00A3A459B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7409FA6F4CCE45F231E71023 /* AppLinks.swift */,
+				B65F2F96EFEB2F01DF1D759B /* Insights.swift */,
 				C152A510DF4595467A1D05AA /* MoyaEntry.swift */,
 				93D0924B6D8FD390A88CBC38 /* MoyaStore.swift */,
+				8B73220CF6CBC96E9F23CD1C /* PurchaseManager.swift */,
+				3DA20DFCB69C88806B1919DD /* ReminderManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -91,7 +111,10 @@
 				1D7B844DF7B04126E12948BC /* FlowView.swift */,
 				FA43ED3C5B2CA6F1E0AE5A4D /* FogView.swift */,
 				58717FB39EBDD3771665E2F1 /* HomeView.swift */,
+				97EAEE77437575DCCC87EA80 /* InsightsView.swift */,
 				8487AC3F38AAF4D75C25B6E9 /* JournalView.swift */,
+				CEB5489E4395CFA4547A9E04 /* PaywallView.swift */,
+				72FFE31750D8ADFE2498AEA4 /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -120,6 +143,9 @@
 			dependencies = (
 			);
 			name = MoyaHogushi;
+			packageProductDependencies = (
+				D0DA94B54A9D3ED9CDA64C2B /* RevenueCat */,
+			);
 			productName = MoyaHogushi;
 			productReference = 611FF1D52FBAA2AA25A865DA /* MoyaHogushi.app */;
 			productType = "com.apple.product-type.application";
@@ -148,6 +174,9 @@
 				Base,
 			);
 			mainGroup = 07338440EEF9F4092E199742;
+			packageReferences = (
+				08584A0F59322FD1916A8679 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
+			);
 			productRefGroup = 559BC3E086C63B77A914F5A2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -176,13 +205,20 @@
 			files = (
 				AF4ABEB1C345BA26D697998E /* MoyaHogushiApp.swift in Sources */,
 				26476FDFAA217D278D1D5FC3 /* Theme.swift in Sources */,
+				6839A6AA23D9F1CA05FB9647 /* AppLinks.swift in Sources */,
+				A2B28E10E8C62CFDCF6EDB2B /* Insights.swift in Sources */,
 				B0E8B13736AB8A6E4933C7DB /* MoyaEntry.swift in Sources */,
 				F45E4877E7778D868A2DF74B /* MoyaStore.swift in Sources */,
+				9D273DE2DFDBCEAA60334B92 /* PurchaseManager.swift in Sources */,
+				3CC6215D59F36F767FCA2BCB /* ReminderManager.swift in Sources */,
 				91D769D935BD55CC3C62A391 /* FlowLayout.swift in Sources */,
 				5C69728111E29900DDD3B105 /* FlowView.swift in Sources */,
 				C548E09E5A9A74BF044B5504 /* FogView.swift in Sources */,
 				4BF640CACDD67D8FCBC6A2FB /* HomeView.swift in Sources */,
+				7A700D286993323000A097C8 /* InsightsView.swift in Sources */,
 				EC28A6F1DE80300C8D67618F /* JournalView.swift in Sources */,
+				97EDDC40C0E8E0F5D754344A /* PaywallView.swift in Sources */,
+				D21A26D827C6ED2E1003D581 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,6 +421,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		08584A0F59322FD1916A8679 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D0DA94B54A9D3ED9CDA64C2B /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 08584A0F59322FD1916A8679 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCat;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9EEAB3379FB1A941DA1F1141 /* Project object */;
 }

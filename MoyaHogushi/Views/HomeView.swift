@@ -2,8 +2,12 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject private var store: MoyaStore
+    @EnvironmentObject private var purchase: PurchaseManager
     @State private var showFlow = false
     @State private var showJournal = false
+    @State private var showSettings = false
+    @State private var showInsights = false
+    @State private var showPaywall = false
 
     var body: some View {
         NavigationStack {
@@ -15,6 +19,7 @@ struct HomeView: View {
                     VStack(alignment: .leading, spacing: 24) {
                         header
                         startCard
+                        if !store.entries.isEmpty { insightsCard }
                         if !store.pendingActions.isEmpty { pendingSection }
                         if !store.entries.isEmpty { recentSection }
                     }
@@ -24,6 +29,11 @@ struct HomeView: View {
             }
             .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(isPresented: $showJournal) { JournalView() }
+            .navigationDestination(isPresented: $showSettings) { SettingsView() }
+            .navigationDestination(isPresented: $showInsights) { InsightsView() }
+        }
+        .sheet(isPresented: $showPaywall) {
+            PaywallView().environmentObject(purchase)
         }
         .fullScreenCover(isPresented: $showFlow) {
             FlowView(onClose: { showFlow = false })
@@ -39,14 +49,26 @@ struct HomeView: View {
             }
             .font(.system(size: 30, weight: .bold, design: .rounded))
             Spacer()
-            Button("記録") { showJournal = true }
-                .font(.system(.subheadline, design: .rounded).weight(.medium))
-                .foregroundColor(Theme.secondaryText)
-                .padding(.horizontal, 14)
-                .padding(.vertical, 7)
-                .background(Theme.card)
-                .clipShape(Capsule())
-                .overlay(Capsule().stroke(Theme.line, lineWidth: 1))
+            HStack(spacing: 8) {
+                Button("記録") { showJournal = true }
+                    .font(.system(.subheadline, design: .rounded).weight(.medium))
+                    .foregroundColor(Theme.secondaryText)
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 7)
+                    .background(Theme.card)
+                    .clipShape(Capsule())
+                    .overlay(Capsule().stroke(Theme.line, lineWidth: 1))
+                Button { showSettings = true } label: {
+                    Image(systemName: "gearshape")
+                        .font(.system(size: 15, weight: .medium))
+                        .foregroundColor(Theme.secondaryText)
+                        .frame(width: 34, height: 34)
+                        .background(Theme.card)
+                        .clipShape(Circle())
+                        .overlay(Circle().stroke(Theme.line, lineWidth: 1))
+                }
+                .accessibilityLabel("設定")
+            }
         }
     }
 
@@ -65,6 +87,40 @@ struct HomeView: View {
         .padding(22)
         .frame(maxWidth: .infinity, alignment: .leading)
         .cardStyle()
+    }
+
+    private var insightsCard: some View {
+        Button {
+            if purchase.isPro { showInsights = true } else { showPaywall = true }
+        } label: {
+            HStack(spacing: 14) {
+                Image(systemName: "chart.bar.xaxis")
+                    .font(.system(size: 20))
+                    .foregroundColor(Theme.accent)
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("週のふりかえり")
+                        .font(.system(.subheadline, design: .rounded).weight(.semibold))
+                        .foregroundColor(Theme.text)
+                    Text("この7日間の感じ方を見てみる")
+                        .font(.system(.caption, design: .rounded))
+                        .foregroundColor(Theme.secondaryText)
+                }
+                Spacer(minLength: 8)
+                if purchase.isPro {
+                    Image(systemName: "chevron.right")
+                        .font(.footnote)
+                        .foregroundColor(Theme.tertiaryText)
+                } else {
+                    Label("Pro", systemImage: "lock.fill")
+                        .font(.caption.weight(.bold))
+                        .foregroundColor(Theme.accentInk)
+                }
+            }
+            .padding(16)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .cardStyle()
+        }
+        .buttonStyle(.plain)
     }
 
     private var pendingSection: some View {

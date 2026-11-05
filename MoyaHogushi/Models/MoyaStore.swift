@@ -44,6 +44,23 @@ final class MoyaStore: ObservableObject {
             .first?.key
     }
 
+    func exportText() -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ja_JP")
+        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+
+        let blocks = entries.map { entry -> String in
+            var lines = ["[\(formatter.string(from: entry.createdAt))] 濃さ \(entry.intensity)/10"]
+            if !entry.emotions.isEmpty { lines.append("感じたこと: " + entry.emotions.joined(separator: "、")) }
+            lines.append(entry.text)
+            if !entry.reflection.isEmpty { lines.append("引っかかり: " + entry.reflection) }
+            if entry.hasAction { lines.append("最初の一歩: " + entry.action + (entry.actionDone ? "(完了)" : "")) }
+            if entry.controllable == false { lines.append("手放した(相手や状況次第)") }
+            return lines.joined(separator: "\n")
+        }
+        return (["もやほぐし 記録(\(entries.count)件)"] + blocks).joined(separator: "\n\n")
+    }
+
     private func save() {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601

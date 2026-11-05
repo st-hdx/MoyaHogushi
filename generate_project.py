@@ -36,6 +36,10 @@ sources = (
     + [(f, f"Views/{f}") for f in view_files]
 )
 
+PKG_REF = uid("pkg:purchases-ios-spm")
+PKG_PRODUCT = uid("pkgprod:RevenueCat")
+BF_PKG = uid("bf:RevenueCat")
+
 build_files = "\n".join(
     f"\t\t{uid('bf:' + p)} /* {n} in Sources */ = {{isa = PBXBuildFile; fileRef = {uid('fr:' + p)} /* {n} */; }};"
     for n, p in sources
@@ -43,6 +47,7 @@ build_files = "\n".join(
 build_files += (
     f"\n\t\t{uid('bf:Assets')} /* Assets.xcassets in Resources */ = {{isa = PBXBuildFile; fileRef = {uid('fr:Assets')} /* Assets.xcassets */; }};"
     f"\n\t\t{uid('bf:Preview')} /* Preview Assets.xcassets in Resources */ = {{isa = PBXBuildFile; fileRef = {uid('fr:Preview')} /* Preview Assets.xcassets */; }};"
+    f"\n\t\t{BF_PKG} /* RevenueCat in Frameworks */ = {{isa = PBXBuildFile; productRef = {PKG_PRODUCT} /* RevenueCat */; }};"
 )
 
 file_refs = f"\t\t{uid('product')} /* {APP}.app */ = {{isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = {APP}.app; sourceTree = BUILT_PRODUCTS_DIR; }};\n"
@@ -157,6 +162,7 @@ pbxproj = f"""// !$*UTF8*$!
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				{BF_PKG} /* RevenueCat in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		}};
@@ -231,6 +237,9 @@ pbxproj = f"""// !$*UTF8*$!
 			dependencies = (
 			);
 			name = {APP};
+			packageProductDependencies = (
+				{PKG_PRODUCT} /* RevenueCat */,
+			);
 			productName = {APP};
 			productReference = {uid('product')} /* {APP}.app */;
 			productType = "com.apple.product-type.application";
@@ -259,6 +268,9 @@ pbxproj = f"""// !$*UTF8*$!
 				Base,
 			);
 			mainGroup = {uid('group:main')};
+			packageReferences = (
+				{PKG_REF} /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
+			);
 			productRefGroup = {uid('group:products')} /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -356,6 +368,25 @@ pbxproj = f"""// !$*UTF8*$!
 			defaultConfigurationName = Release;
 		}};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		{PKG_REF} /* XCRemoteSwiftPackageReference "purchases-ios-spm" */ = {{
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios-spm.git";
+			requirement = {{
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			}};
+		}};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		{PKG_PRODUCT} /* RevenueCat */ = {{
+			isa = XCSwiftPackageProductDependency;
+			package = {PKG_REF} /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCat;
+		}};
+/* End XCSwiftPackageProductDependency section */
 	}};
 	rootObject = {uid('project')} /* Project object */;
 }}
