@@ -1,0 +1,160 @@
+/* HomeView */
+"もや" = "もや";
+"ほぐし" = "ほぐし";
+"記録" = "Entries";
+"設定" = "Settings";
+"そのもやもや、\nちょっとだけ整理してみよう" = "Let's untangle\nthat foggy feeling";
+"書く・感じる・考える・手放す。4ステップで3分ほど。" = "Write, feel, think, release — four steps, about 3 minutes.";
+"書いてみる" = "Start writing";
+"週のふりかえり" = "Weekly Review";
+"この7日間の感じ方を見てみる" = "See how you've been feeling this week";
+"決めた一歩" = "Next Steps";
+"最近の記録" = "Recent Entries";
+"すべて見る" = "See All";
+
+/* JournalView */
+"まだ記録がありません" = "No entries yet";
+"最初のもやもやを書いてみよう" = "Write down your first foggy feeling";
+"Proで、これまでの記録をすべてさかのぼれます" = "Go Pro to look back through every entry";
+"手放した(相手や状況次第)" = "Released (out of your hands)";
+"削除" = "Delete";
+"完了" = "Done";
+"未完了" = "Not done";
+"journal.locked_more" = "%d more entries available";
+"journal.total_count" = "%d total";
+"journal.week_count" = "%d this week";
+"journal.top_emotion" = "Most common: %@";
+"journal.intensity_label" = "Intensity %d";
+"journal.first_step_label" = "Next step: %@";
+
+/* SettingsView */
+"開発用" = "Developer";
+"Pro(デバッグ)" = "Pro (Debug)";
+"Pro をご利用中です" = "You're on Pro";
+"サブスクリプションを管理" = "Manage Subscription";
+"Pro にアップグレード" = "Upgrade to Pro";
+"購入を復元する" = "Restore Purchases";
+"プラン" = "Plan";
+"毎日のリマインド" = "Daily Reminder";
+"時刻" = "Time";
+"通知がオフです。設定アプリで許可する" = "Notifications are off. Enable them in Settings";
+"リマインド" = "Reminder";
+"決めた時刻に「今日、もやもやしたことはあった?」とお知らせします。" = "We'll ask, \U201CAnything on your mind today?\U201D at the time you choose.";
+"記録をテキストで書き出す" = "Export entries as text";
+"データ" = "Data";
+"書き出した内容は、共有先に選んだアプリやサービスに渡ります。" = "The exported text goes to whichever app or service you choose to share it with.";
+"プライバシーポリシー" = "Privacy Policy";
+"利用規約" = "Terms of Use";
+"バージョン" = "Version";
+"このアプリについて" = "About";
+"iCloudで同期" = "Sync with iCloud";
+"同期" = "Sync";
+"オンにすると、記録があなたのiCloudにも保存され、同じApple IDの端末で引き継げます。開発者が記録を見ることはできません。オフでも記録はこの端末に残ります。" = "When on, your entries are also saved to your own iCloud and carry over to other devices signed in with the same Apple ID. We can't see your entries. Turning it off keeps your entries on this device.";
+"settings.sync_unavailable" = "You're not signed in to iCloud, or this app isn't allowed to use it.";
+"settings.sync_syncing" = "Syncing…";
+"settings.sync_last_synced" = "Last synced %@";
+"settings.restore_succeeded" = "Your purchase has been restored.";
+"settings.restore_failed" = "Restoring your purchase failed.";
+
+/* PaywallView */
+"閉じる" = "Close";
+"もやもやを、\nもっと遠くまで見渡す" = "See your foggy\nfeelings more clearly";
+"過去の記録をすべてさかのぼれる" = "Look back through every past entry";
+"週のふりかえりで、感じ方の傾向がわかる" = "See how you've been feeling with a weekly review";
+"毎日のリマインドで書く習慣をつくる" = "Build a daily writing habit with reminders";
+"記録をテキストで書き出せる" = "Export your entries as text";
+"プランを読み込めませんでした" = "Couldn't load plans";
+"購入機能は準備中です" = "Purchases aren't available yet";
+"もう一度読み込む" = "Try Again";
+"年額プラン" = "Annual Plan";
+"月額プラン" = "Monthly Plan";
+"おすすめ" = "Best Value";
+"Proを始める" = "Start Pro";
+"購読は自動更新されます。現在の期間が終了する24時間以上前にApple IDの設定から解約しない限り、同じ金額で更新されます。解約は設定アプリの「サブスクリプション」からいつでもできます。" = "Your subscription renews automatically at the same price unless you cancel in your Apple ID settings at least 24 hours before the current period ends. You can cancel anytime from Settings \U2192 Subscriptions.";
+"paywall.free_limit_header" = "The free plan shows your most recent %d entries.\nGo Pro and your history becomes your own guide.";
+"paywall.per_month_price" = "%@ / month";
+"paywall.price_per_year" = "%@ / year";
+"paywall.price_per_month" = "%@ / month";
+"purchase_blocked_by_restriction_message" = "We couldn't open the purchase confirmation. Please check your device restrictions (like Screen Time).";
+"purchase_failed_message" = "The purchase failed. Please try again in a moment.";
+"restore_failed_message" = "Restoring your purchase failed. Please try again in a moment.";
+
+/* PurchaseManager */
+"purchase_error.not_configured" = "Purchases aren't available yet.";
+"purchase_error.not_entitled" = "We couldn't find your purchase.";
+
+/* ReminderManager */
+"reminder.title" = "もやほぐし";
+"reminder.body" = "Anything on your mind today? Take 3 minutes to untangle it.";
+
+/* InsightsView */
+"よく感じていたこと(直近30日)" = "What came up most (last 30 days)";
+"感じ方を選んで記録すると、ここに傾向が出ます。" = "Pick how you feel when you write, and patterns will show up here.";
+"insights.tile.records" = "Entries";
+"insights.count_entries" = "%d";
+"insights.last_week_count" = "Last week %d";
+"insights.tile.average_intensity" = "Avg. Intensity";
+"insights.last_week_value" = "Last week %@";
+"insights.tile.action_rate" = "Steps Done";
+"insights.last_30_days" = "Last 30 days";
+
+/* Insights (headline) */
+"insights.headline.empty" = "You haven't recorded anything in the past 7 days. Whenever something's on your mind, come write it down.";
+"insights.headline.top_emotion" = "This past week, \U201C%@\U201D came up most.";
+"insights.headline.count_only" = "You faced %d things this past week.";
+"insights.headline.trend_down" = "The weight of it has eased since last week.";
+"insights.headline.trend_up" = "It's felt heavier than last week. Take it easy on yourself.";
+"insights.headline.trend_flat" = "It feels about the same as last week.";
+
+/* FlowView */
+"1 / 4・書く" = "1 of 4 \U00B7 Write";
+"いま、何にもやもやしてる?" = "What's on your mind right now?";
+"起きたこと、誰かに言われたこと、なんとなく引っかかること。そのまま書いてみて" = "Something that happened, something someone said, or just a nagging feeling. Write it as it is.";
+"2 / 4・感じる" = "2 of 4 \U00B7 Feel";
+"それはどんな感じ?" = "What does it feel like?";
+"もやもやの濃さ" = "How heavy does it feel";
+"薄い" = "Light";
+"濃い" = "Heavy";
+"3 / 4・考える" = "3 of 4 \U00B7 Think";
+"何が引っかかってるんだと思う?" = "What do you think is really bothering you?";
+"本当はこうしたかった、ここが嫌だった、など。わからなければ空欄で大丈夫" = "What you really wanted, what bothered you \U2014 or leave it blank if you're not sure";
+"これ、自分の行動で変えられること?" = "Is this something you can change yourself?";
+"変えられる" = "I can change it";
+"自分の次の一歩がある" = "There's a next step I can take";
+"変えられない" = "I can't change it";
+"相手や状況次第" = "It's up to someone else, or the situation";
+"4 / 4・手放す" = "4 of 4 \U00B7 Release";
+"じゃあ、最初の一歩だけ決めよう" = "Let's just decide the first step";
+"例: 明日の朝一で確認のメッセージを送る" = "e.g. Send a message to check in first thing tomorrow";
+"一歩が決まったら、残りは今日のあなたが考えなくていい。手に持ったまま手放してしまおう。" = "Once the step is set, you don't need to carry the rest today. Let it go, just as it is.";
+"これは相手や状況が決めること" = "This one is up to someone else, or the situation";
+"自分では変えられないことに、エネルギーを使いすぎていたのかもしれない。ちゃんと考えたなら、今日はここまでで十分。" = "Maybe you've been spending too much energy on something you can't change. If you've really thought it through, that's enough for today.";
+"一歩は決まった。あとは手を動かすだけ。もやもやは預かっておくね。" = "Your step is set. All that's left is to do it. We'll hold onto the rest for you.";
+"今日はちゃんと向き合えた。それでじゅうぶん。" = "You faced it today. That's enough.";
+"次へ" = "Next";
+"戻る" = "Back";
+"手放す" = "Release";
+"ホームへ戻る" = "Back to Home";
+"もう一度書く" = "Write Another";
+
+/* MoyaStore export */
+"export.entry_header" = "[%@] Intensity %d/10";
+"export.list_separator" = ", ";
+"export.emotions_line" = "Feelings: %@";
+"export.reflection_line" = "What stuck: %@";
+"export.first_step_done" = "Next step: %@ (done)";
+"export.first_step" = "Next step: %@";
+"export.released_uncontrollable" = "Released (out of your hands)";
+"export.header" = "MoyaHogushi Entries (%d)";
+
+/* Emotion (Models/MoyaEntry.swift) */
+"emotion.anxious" = "Anxious";
+"emotion.irritated" = "Irritated";
+"emotion.sad" = "Sad";
+"emotion.impatient" = "Impatient";
+"emotion.empty" = "Empty";
+"emotion.jealous" = "Jealous";
+"emotion.ashamed" = "Ashamed";
+"emotion.tired" = "Tired";
+"emotion.lonely" = "Lonely";
+"emotion.unclear" = "Not sure";

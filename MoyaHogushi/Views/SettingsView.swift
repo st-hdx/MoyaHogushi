@@ -173,7 +173,7 @@ struct SettingsView: View {
         }
     }
 
-    private func lockedRow(_ title: String) -> some View {
+    private func lockedRow(_ title: LocalizedStringKey) -> some View {
         Button { showPaywall = true } label: {
             HStack {
                 Text(title).foregroundColor(Theme.text)
@@ -192,9 +192,13 @@ struct SettingsView: View {
         restoreMessage = nil
         do {
             try await purchase.restore()
-            restoreMessage = "購入を復元しました。"
+            restoreMessage = NSLocalizedString("settings.restore_succeeded", value: "購入を復元しました。", comment: "Restore purchases succeeded")
         } catch {
-            restoreMessage = (error as? LocalizedError)?.errorDescription ?? "購入の復元に失敗しました。"
+            restoreMessage = (error as? LocalizedError)?.errorDescription ?? NSLocalizedString(
+                "settings.restore_failed",
+                value: "購入の復元に失敗しました。",
+                comment: "Restore purchases failed"
+            )
         }
         isRestoring = false
     }
@@ -206,9 +210,19 @@ private struct SyncSection: View {
     private var statusText: String? {
         switch sync.status {
         case .off: return nil
-        case .unavailable: return "iCloudにサインインしていないか、このアプリのiCloudが許可されていません。"
-        case .syncing: return "同期しています…"
-        case .synced(let date): return "最終同期 " + date.formatted(date: .omitted, time: .shortened)
+        case .unavailable:
+            return NSLocalizedString(
+                "settings.sync_unavailable",
+                value: "iCloudにサインインしていないか、このアプリのiCloudが許可されていません。",
+                comment: "iCloud sync unavailable notice"
+            )
+        case .syncing:
+            return NSLocalizedString("settings.sync_syncing", value: "同期しています…", comment: "iCloud sync in progress")
+        case .synced(let date):
+            return String(
+                format: NSLocalizedString("settings.sync_last_synced", value: "最終同期 %@", comment: "Last synced time"),
+                date.formatted(date: .omitted, time: .shortened)
+            )
         }
     }
 

@@ -1,0 +1,84 @@
+{
+  "identifier" : "05EF0F3D-C98C-40F3-BC70-BD79496A9384",
+  "nonRenewingSubscriptions" : [],
+  "products" : [],
+  "settings" : {
+    "_askToBuyEnabled" : false,
+    "_billingIssuesEnabled" : false,
+    "_disableDialogs" : false,
+    "_editorInfo" : {
+      "target" : "MoyaHogushi"
+    },
+    "_failTransactionsEnabled" : false,
+    "_locale" : "ja_JP",
+    "_storefront" : "JPN",
+    "_storeKitErrors" : []
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "8D93A0E7-F781-4C75-953D-7585F83FBDD5",
+      "localizations" : [],
+      "name" : "MoyaHogushi Pro",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [],
+          "codeOffers" : [],
+          "displayPrice" : "480",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "47119495-EF37-46CC-91BB-884F550D6E10",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "価格は未定。テスト用の仮の値です。 / Price TBD — placeholder for local testing only.",
+              "displayName" : "もやほぐし Pro(月額・仮)",
+              "locale" : "ja"
+            },
+            {
+              "description" : "Price TBD — placeholder for local testing only.",
+              "displayName" : "MoyaHogushi Pro (Monthly, placeholder)",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.pandagiken.moyahogushi.app.pro.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "MoyaHogushi Pro Monthly (placeholder price)",
+          "subscriptionGroupID" : "8D93A0E7-F781-4C75-953D-7585F83FBDD5",
+          "type" : "RecurringSubscription",
+          "winBackOffers" : []
+        },
+        {
+          "adHocOffers" : [],
+          "codeOffers" : [],
+          "displayPrice" : "4800",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "89A56DFD-788C-4733-B850-97622E06D28C",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "価格は未定。テスト用の仮の値です。 / Price TBD — placeholder for local testing only.",
+              "displayName" : "もやほぐし Pro(年額・仮)",
+              "locale" : "ja"
+            },
+            {
+              "description" : "Price TBD — placeholder for local testing only.",
+              "displayName" : "MoyaHogushi Pro (Annual, placeholder)",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.pandagiken.moyahogushi.app.pro.annual",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "MoyaHogushi Pro Annual (placeholder price)",
+          "subscriptionGroupID" : "8D93A0E7-F781-4C75-953D-7585F83FBDD5",
+          "type" : "RecurringSubscription",
+          "winBackOffers" : []
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

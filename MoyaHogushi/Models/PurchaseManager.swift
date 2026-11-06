@@ -85,8 +85,10 @@ enum PurchaseError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
-        case .notConfigured: return "購入機能は準備中です。"
-        case .notEntitled: return "購入情報が見つかりませんでした。"
+        case .notConfigured:
+            return NSLocalizedString("purchase_error.not_configured", value: "購入機能は準備中です。", comment: "")
+        case .notEntitled:
+            return NSLocalizedString("purchase_error.not_entitled", value: "購入情報が見つかりませんでした。", comment: "")
         case .cancelled: return nil
         }
     }

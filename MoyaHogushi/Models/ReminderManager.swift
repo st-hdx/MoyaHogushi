@@ -54,8 +54,12 @@ final class ReminderManager: ObservableObject {
         guard isEnabled else { return }
 
         let content = UNMutableNotificationContent()
-        content.title = "もやほぐし"
-        content.body = "今日、もやもやしたことはあった? 3分だけ整理してみよう。"
+        content.title = NSLocalizedString("reminder.title", value: "もやほぐし", comment: "Daily reminder notification title")
+        content.body = NSLocalizedString(
+            "reminder.body",
+            value: "今日、もやもやしたことはあった? 3分だけ整理してみよう。",
+            comment: "Daily reminder notification body"
+        )
         content.sound = .default
 
         var components = DateComponents()

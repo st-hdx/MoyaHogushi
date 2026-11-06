@@ -82,7 +82,7 @@ struct FlowView: View {
         }
     }
 
-    private func stepHeader(_ label: String, _ prompt: String) -> some View {
+    private func stepHeader(_ label: LocalizedStringKey, _ prompt: LocalizedStringKey) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(label)
                 .font(.system(.caption, design: .rounded).weight(.bold))
@@ -121,7 +121,7 @@ struct FlowView: View {
                             draft.emotions.append(emotion)
                         }
                     } label: {
-                        Text(emotion)
+                        Text(Emotion.displayName(for: emotion))
                             .font(.system(.subheadline, design: .rounded).weight(isOn ? .semibold : .regular))
                             .foregroundColor(isOn ? Theme.accentInk : Theme.secondaryText)
                             .padding(.horizontal, 14)
@@ -188,7 +188,7 @@ struct FlowView: View {
         .cardStyle()
     }
 
-    private func choiceButton(title: String, subtitle: String, value: Bool) -> some View {
+    private func choiceButton(title: LocalizedStringKey, subtitle: LocalizedStringKey, value: Bool) -> some View {
         let isOn = draft.controllable == value
         return Button {
             draft.controllable = value
@@ -244,7 +244,7 @@ struct FlowView: View {
         .cardStyle()
     }
 
-    private func note(_ text: String) -> some View {
+    private func note(_ text: LocalizedStringKey) -> some View {
         Text(text)
             .font(.system(.footnote, design: .rounded))
             .foregroundColor(Theme.secondaryText)
@@ -261,8 +261,8 @@ struct FlowView: View {
                 .font(.system(size: 44, weight: .light))
                 .foregroundColor(Theme.accent)
             Text(draft.hasAction
-                 ? "一歩は決まった。あとは手を動かすだけ。もやもやは預かっておくね。"
-                 : "今日はちゃんと向き合えた。それでじゅうぶん。")
+                 ? LocalizedStringKey("一歩は決まった。あとは手を動かすだけ。もやもやは預かっておくね。")
+                 : LocalizedStringKey("今日はちゃんと向き合えた。それでじゅうぶん。"))
                 .font(.system(.body, design: .rounded))
                 .foregroundColor(Theme.text)
                 .multilineTextAlignment(.center)
@@ -364,6 +364,9 @@ struct FlowView: View {
 
     /// 手放す儀式を数回終えた、満足度の高いタイミングでレビューを依頼する。表示頻度は iOS 側が制限する。
     private func requestReviewIfMilestoneReached() {
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("-uitestReset") { return }
+        #endif
         let key = "releaseCompletionCount"
         let count = UserDefaults.standard.integer(forKey: key) + 1
         UserDefaults.standard.set(count, forKey: key)
@@ -379,7 +382,7 @@ struct FlowView: View {
 
 private struct PlaceholderEditor: View {
     @Binding var text: String
-    let placeholder: String
+    let placeholder: LocalizedStringKey
     let minHeight: CGFloat
 
     var body: some View {

@@ -23,19 +23,19 @@ struct InsightsView: View {
 
                     HStack(spacing: 10) {
                         tile(
-                            title: "記録",
-                            value: "\(insights.thisWeek.count)件",
-                            caption: "先週 \(insights.lastWeek.count)件"
+                            title: NSLocalizedString("insights.tile.records", value: "記録", comment: "Insights tile title"),
+                            value: String(format: NSLocalizedString("insights.count_entries", value: "%d件", comment: "Entry count"), insights.thisWeek.count),
+                            caption: String(format: NSLocalizedString("insights.last_week_count", value: "先週 %d件", comment: "Last week's count"), insights.lastWeek.count)
                         )
                         tile(
-                            title: "平均の濃さ",
+                            title: NSLocalizedString("insights.tile.average_intensity", value: "平均の濃さ", comment: "Insights tile title"),
                             value: format(insights.thisWeek.averageIntensity),
-                            caption: "先週 \(format(insights.lastWeek.averageIntensity))"
+                            caption: String(format: NSLocalizedString("insights.last_week_value", value: "先週 %@", comment: "Last week's value"), format(insights.lastWeek.averageIntensity))
                         )
                         tile(
-                            title: "一歩の達成",
+                            title: NSLocalizedString("insights.tile.action_rate", value: "一歩の達成", comment: "Insights tile title"),
                             value: insights.actionRate.map { "\(Int(($0 * 100).rounded()))%" } ?? "–",
-                            caption: "直近30日"
+                            caption: NSLocalizedString("insights.last_30_days", value: "直近30日", comment: "Last 30 days caption")
                         )
                     }
 

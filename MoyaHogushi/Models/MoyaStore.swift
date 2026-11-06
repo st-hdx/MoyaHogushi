@@ -26,6 +26,12 @@ final class MoyaStore: ObservableObject {
         }
         self.syncedIDs = synced
 
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("-uitestReset") {
+            try? FileManager.default.removeItem(at: self.saveURL)
+        }
+        #endif
+
         load()
         sync.onRemoteEntries = { [weak self] remote, unreadable in
             self?.mergeRemote(remote, unreadable: unreadable)
@@ -73,19 +79,35 @@ final class MoyaStore: ObservableObject {
 
     func exportText() -> String {
         let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "ja_JP")
-        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+        formatter.locale = Locale.current
+        formatter.setLocalizedDateFormatFromTemplate("yyyyMMddHHmm")
 
         let blocks = entries.map { entry -> String in
-            var lines = ["[\(formatter.string(from: entry.createdAt))] 濃さ \(entry.intensity)/10"]
-            if !entry.emotions.isEmpty { lines.append("感じたこと: " + entry.emotions.joined(separator: "、")) }
+            var lines = [String(
+                format: NSLocalizedString("export.entry_header", value: "[%@] 濃さ %d/10", comment: "Exported entry header: date, intensity"),
+                formatter.string(from: entry.createdAt), entry.intensity
+            )]
+            if !entry.emotions.isEmpty {
+                let names = entry.emotions.map(Emotion.displayName(for:)).joined(separator: NSLocalizedString("export.list_separator", value: "、", comment: "Separator between listed items"))
+                lines.append(String(format: NSLocalizedString("export.emotions_line", value: "感じたこと: %@", comment: "Exported entry: emotions line"), names))
+            }
             lines.append(entry.text)
-            if !entry.reflection.isEmpty { lines.append("引っかかり: " + entry.reflection) }
-            if entry.hasAction { lines.append("最初の一歩: " + entry.action + (entry.actionDone ? "(完了)" : "")) }
-            if entry.controllable == false { lines.append("手放した(相手や状況次第)") }
+            if !entry.reflection.isEmpty {
+                lines.append(String(format: NSLocalizedString("export.reflection_line", value: "引っかかり: %@", comment: "Exported entry: reflection line"), entry.reflection))
+            }
+            if entry.hasAction {
+                let actionLine = entry.actionDone
+                    ? String(format: NSLocalizedString("export.first_step_done", value: "最初の一歩: %@(完了)", comment: "Exported entry: first step, done"), entry.action)
+                    : String(format: NSLocalizedString("export.first_step", value: "最初の一歩: %@", comment: "Exported entry: first step"), entry.action)
+                lines.append(actionLine)
+            }
+            if entry.controllable == false {
+                lines.append(NSLocalizedString("export.released_uncontrollable", value: "手放した(相手や状況次第)", comment: "Exported entry: released as uncontrollable"))
+            }
             return lines.joined(separator: "\n")
         }
-        return (["もやほぐし 記録(\(entries.count)件)"] + blocks).joined(separator: "\n\n")
+        let header = String(format: NSLocalizedString("export.header", value: "もやほぐし 記録(%d件)", comment: "Exported text header: total count"), entries.count)
+        return ([header] + blocks).joined(separator: "\n\n")
     }
 
     // MARK: - iCloud

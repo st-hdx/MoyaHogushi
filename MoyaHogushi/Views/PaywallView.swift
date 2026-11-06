@@ -61,7 +61,7 @@ struct PaywallView: View {
                 .font(.system(.title2, design: .rounded).weight(.bold))
                 .foregroundColor(Theme.text)
                 .multilineTextAlignment(.center)
-            Text("無料版は直近\(PurchaseManager.freeEntryLimit)件まで。\nProで、積み重ねた記録が自分のヒントになります。")
+            Text(String(format: NSLocalizedString("paywall.free_limit_header", value: "無料版は直近%d件まで。\nProで、積み重ねた記録が自分のヒントになります。", comment: "Paywall header subtitle"), PurchaseManager.freeEntryLimit))
                 .font(.system(.subheadline, design: .rounded))
                 .foregroundColor(Theme.secondaryText)
                 .multilineTextAlignment(.center)
@@ -81,7 +81,7 @@ struct PaywallView: View {
         .cardStyle()
     }
 
-    private func featureRow(_ icon: String, _ text: String) -> some View {
+    private func featureRow(_ icon: String, _ text: LocalizedStringKey) -> some View {
         HStack(spacing: 14) {
             Image(systemName: icon)
                 .font(.system(.body))
@@ -98,7 +98,9 @@ struct PaywallView: View {
     private var plans: some View {
         if purchase.packages.isEmpty {
             VStack(spacing: 12) {
-                Text(PurchaseManager.isConfigurable ? "プランを読み込めませんでした" : "購入機能は準備中です")
+                Text(PurchaseManager.isConfigurable
+                     ? LocalizedStringKey("プランを読み込めませんでした")
+                     : LocalizedStringKey("購入機能は準備中です"))
                     .font(.system(.footnote, design: .rounded))
                     .foregroundColor(Theme.secondaryText)
                 if PurchaseManager.isConfigurable {
@@ -133,7 +135,7 @@ struct PaywallView: View {
                     .foregroundColor(isOn ? Theme.accent : Theme.tertiaryText)
                 VStack(alignment: .leading, spacing: 3) {
                     HStack(spacing: 8) {
-                        Text(isAnnual ? "年額プラン" : "月額プラン")
+                        Text(isAnnual ? LocalizedStringKey("年額プラン") : LocalizedStringKey("月額プラン"))
                             .font(.system(.body, design: .rounded).weight(.semibold))
                             .foregroundColor(Theme.text)
                         if isAnnual {
@@ -147,13 +149,20 @@ struct PaywallView: View {
                         }
                     }
                     if isAnnual, let perMonth = package.storeProduct.localizedPricePerMonth {
-                        Text("月あたり \(perMonth)")
+                        Text(String(format: NSLocalizedString("paywall.per_month_price", value: "月あたり %@", comment: "Per-month equivalent price"), perMonth))
                             .font(.system(.caption, design: .rounded))
                             .foregroundColor(Theme.tertiaryText)
                     }
                 }
                 Spacer(minLength: 8)
-                Text(package.storeProduct.localizedPriceString + (isAnnual ? " / 年" : " / 月"))
+                Text(String(
+                    format: NSLocalizedString(
+                        isAnnual ? "paywall.price_per_year" : "paywall.price_per_month",
+                        value: isAnnual ? "%@ / 年" : "%@ / 月",
+                        comment: "Plan price with its billing period"
+                    ),
+                    package.storeProduct.localizedPriceString
+                ))
                     .font(.system(.subheadline, design: .rounded).weight(.medium).monospacedDigit())
                     .foregroundColor(Theme.text)
             }
@@ -231,10 +240,18 @@ struct PaywallView: View {
             // タップから1秒未満のキャンセルは人間の操作ではなく、端末側の制限(スクリーンタイム等)で
             // 確認シートが出ないまま弾かれたと見なす。他アプリでも同じ現象を確認済み。
             if Date().timeIntervalSince(startedAt) < 1.0 {
-                errorMessage = "購入の確認画面を開けませんでした。端末の制限(スクリーンタイムなど)をご確認ください。"
+                errorMessage = NSLocalizedString(
+                    "purchase_blocked_by_restriction_message",
+                    value: "購入の確認画面を開けませんでした。端末の制限(スクリーンタイムなど)をご確認ください。",
+                    comment: "Shown when the purchase sheet never appeared"
+                )
             }
         } catch {
-            errorMessage = (error as? LocalizedError)?.errorDescription ?? "購入に失敗しました。時間をおいてもう一度お試しください。"
+            errorMessage = (error as? LocalizedError)?.errorDescription ?? NSLocalizedString(
+                "purchase_failed_message",
+                value: "購入に失敗しました。時間をおいてもう一度お試しください。",
+                comment: "Generic purchase failure"
+            )
         }
         isPurchasing = false
     }
@@ -246,7 +263,11 @@ struct PaywallView: View {
             try await purchase.restore()
             dismiss()
         } catch {
-            errorMessage = (error as? LocalizedError)?.errorDescription ?? "購入の復元に失敗しました。時間をおいてもう一度お試しください。"
+            errorMessage = (error as? LocalizedError)?.errorDescription ?? NSLocalizedString(
+                "restore_failed_message",
+                value: "購入の復元に失敗しました。時間をおいてもう一度お試しください。",
+                comment: "Generic restore failure"
+            )
         }
         isRestoring = false
     }

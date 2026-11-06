@@ -36,6 +36,20 @@ sources = (
     + [(f, f"Views/{f}") for f in view_files]
 )
 
+UITEST_TARGET = f"{APP}UITests"
+UITEST_DIR = os.path.join(ROOT, UITEST_TARGET)
+uitest_sources = (
+    sorted(f for f in os.listdir(UITEST_DIR) if f.endswith(".swift") and os.path.isfile(os.path.join(UITEST_DIR, f)))
+    if os.path.isdir(UITEST_DIR) else []
+)
+
+# Localized Localizable.strings (one lproj dir per locale, same filename).
+LOCALES = sorted(
+    loc for loc in os.listdir(SRC)
+    if loc.endswith(".lproj") and os.path.isfile(os.path.join(SRC, loc, "Localizable.strings"))
+)
+LOCALES = [loc[: -len(".lproj")] for loc in LOCALES]
+
 PKG_REF = uid("pkg:purchases-ios-spm")
 PKG_PRODUCT = uid("pkgprod:RevenueCat")
 BF_PKG = uid("bf:RevenueCat")
@@ -47,7 +61,13 @@ build_files = "\n".join(
 build_files += (
     f"\n\t\t{uid('bf:Assets')} /* Assets.xcassets in Resources */ = {{isa = PBXBuildFile; fileRef = {uid('fr:Assets')} /* Assets.xcassets */; }};"
     f"\n\t\t{uid('bf:Preview')} /* Preview Assets.xcassets in Resources */ = {{isa = PBXBuildFile; fileRef = {uid('fr:Preview')} /* Preview Assets.xcassets */; }};"
+    f"\n\t\t{uid('bf:Localizable')} /* Localizable.strings in Resources */ = {{isa = PBXBuildFile; fileRef = {uid('group:localizable')} /* Localizable.strings */; }};"
     f"\n\t\t{BF_PKG} /* RevenueCat in Frameworks */ = {{isa = PBXBuildFile; productRef = {PKG_PRODUCT} /* RevenueCat */; }};"
+)
+
+uitest_build_files = "\n".join(
+    f"\t\t{uid('uitest:bf:' + n)} /* {n} in Sources */ = {{isa = PBXBuildFile; fileRef = {uid('uitest:fr:' + n)} /* {n} */; }};"
+    for n in uitest_sources
 )
 
 file_refs = f"\t\t{uid('product')} /* {APP}.app */ = {{isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = {APP}.app; sourceTree = BUILT_PRODUCTS_DIR; }};\n"
@@ -61,6 +81,20 @@ file_refs += (
     f'\n\t\t{uid("fr:Preview")} /* Preview Assets.xcassets */ = {{isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; }};'
 )
 
+uitest_file_refs = f'\t\t{uid("uitest:product")} /* {UITEST_TARGET}.xctest */ = {{isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = {UITEST_TARGET}.xctest; sourceTree = BUILT_PRODUCTS_DIR; }};\n'
+uitest_file_refs += "\n".join(
+    f'\t\t{uid("uitest:fr:" + n)} /* {n} */ = {{isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = {n}; sourceTree = "<group>"; }};'
+    for n in uitest_sources
+)
+
+locale_file_refs = "\n".join(
+    f'\t\t{uid("locale:fr:" + loc)} /* {loc} */ = {{isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = {loc}; path = {loc}.lproj/Localizable.strings; sourceTree = "<group>"; }};'
+    for loc in LOCALES
+)
+locale_variant_group_children = "\n".join(
+    f"\t\t\t\t{uid('locale:fr:' + loc)} /* {loc} */," for loc in LOCALES
+)
+
 
 def children(files, prefix=""):
     return "\n".join(f"\t\t\t\t{uid('fr:' + prefix + n)} /* {n} */," for n in files)
@@ -69,6 +103,12 @@ def children(files, prefix=""):
 source_phase_files = "\n".join(
     f"\t\t\t\t{uid('bf:' + p)} /* {n} in Sources */," for n, p in sources
 )
+
+uitest_source_phase_files = "\n".join(
+    f"\t\t\t\t{uid('uitest:bf:' + n)} /* {n} in Sources */," for n in uitest_sources
+)
+
+uitest_children = "\n".join(f"\t\t\t\t{uid('uitest:fr:' + n)} /* {n} */," for n in uitest_sources)
 
 PROJECT_SETTINGS = """\
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -153,10 +193,23 @@ pbxproj = f"""// !$*UTF8*$!
 
 /* Begin PBXBuildFile section */
 {build_files}
+{uitest_build_files}
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		{uid('uitest:containerproxy')} /* PBXContainerItemProxy */ = {{
+			isa = PBXContainerItemProxy;
+			containerPortal = {uid('project')} /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = {uid('target')};
+			remoteInfo = {APP};
+		}};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 {file_refs}
+{uitest_file_refs}
+{locale_file_refs}
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +221,13 @@ pbxproj = f"""// !$*UTF8*$!
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		}};
+		{uid('uitest:phase:frameworks')} /* Frameworks */ = {{
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		}};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -175,14 +235,25 @@ pbxproj = f"""// !$*UTF8*$!
 			isa = PBXGroup;
 			children = (
 				{uid('group:app')} /* {APP} */,
+				{uid('group:uitests')} /* {UITEST_TARGET} */,
 				{uid('group:products')} /* Products */,
 			);
+			sourceTree = "<group>";
+		}};
+		{uid('group:uitests')} /* {UITEST_TARGET} */ = {{
+			isa = PBXGroup;
+			children = (
+{uitest_children}
+			);
+			name = {UITEST_TARGET};
+			path = {UITEST_TARGET};
 			sourceTree = "<group>";
 		}};
 		{uid('group:products')} /* Products */ = {{
 			isa = PBXGroup;
 			children = (
 				{uid('product')} /* {APP}.app */,
+				{uid('uitest:product')} /* {UITEST_TARGET}.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -196,6 +267,7 @@ pbxproj = f"""// !$*UTF8*$!
 				{uid('fr:Assets')} /* Assets.xcassets */,
 				{uid('fr:Entitlements')} /* {APP}.entitlements */,
 				{uid('group:preview')} /* Preview Content */,
+				{uid('group:localizable')} /* Localizable.strings */,
 			);
 			path = {APP};
 			sourceTree = "<group>";
@@ -247,6 +319,24 @@ pbxproj = f"""// !$*UTF8*$!
 			productReference = {uid('product')} /* {APP}.app */;
 			productType = "com.apple.product-type.application";
 		}};
+		{uid('uitest:target')} /* {UITEST_TARGET} */ = {{
+			isa = PBXNativeTarget;
+			buildConfigurationList = {uid('uitest:cfglist:target')} /* Build configuration list for PBXNativeTarget "{UITEST_TARGET}" */;
+			buildPhases = (
+				{uid('uitest:phase:sources')} /* Sources */,
+				{uid('uitest:phase:frameworks')} /* Frameworks */,
+				{uid('uitest:phase:resources')} /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				{uid('uitest:targetdep')} /* PBXTargetDependency */,
+			);
+			name = {UITEST_TARGET};
+			productName = {UITEST_TARGET};
+			productReference = {uid('uitest:product')} /* {UITEST_TARGET}.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		}};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -268,6 +358,7 @@ pbxproj = f"""// !$*UTF8*$!
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				ja,
+				en,
 				Base,
 			);
 			mainGroup = {uid('group:main')};
@@ -279,6 +370,7 @@ pbxproj = f"""// !$*UTF8*$!
 			projectRoot = "";
 			targets = (
 				{uid('target')} /* {APP} */,
+				{uid('uitest:target')} /* {UITEST_TARGET} */,
 			);
 		}};
 /* End PBXProject section */
@@ -290,6 +382,14 @@ pbxproj = f"""// !$*UTF8*$!
 			files = (
 				{uid('bf:Preview')} /* Preview Assets.xcassets in Resources */,
 				{uid('bf:Assets')} /* Assets.xcassets in Resources */,
+				{uid('bf:Localizable')} /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		}};
+		{uid('uitest:phase:resources')} /* Resources */ = {{
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		}};
@@ -304,7 +404,35 @@ pbxproj = f"""// !$*UTF8*$!
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		}};
+		{uid('uitest:phase:sources')} /* Sources */ = {{
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+{uitest_source_phase_files}
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		}};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		{uid('uitest:targetdep')} /* PBXTargetDependency */ = {{
+			isa = PBXTargetDependency;
+			name = {APP};
+			target = {uid('target')} /* {APP} */;
+			targetProxy = {uid('uitest:containerproxy')} /* PBXContainerItemProxy */;
+		}};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		{uid('group:localizable')} /* Localizable.strings */ = {{
+			isa = PBXVariantGroup;
+			children = (
+{locale_variant_group_children}
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		}};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		{uid('cfg:project:debug')} /* Debug */ = {{
@@ -349,6 +477,53 @@ pbxproj = f"""// !$*UTF8*$!
 {TARGET_SETTINGS}			}};
 			name = Release;
 		}};
+		{uid('uitest:cfg:target:debug')} /* Debug */ = {{
+			isa = XCBuildConfiguration;
+			buildSettings = {{
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = {TEAM};
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = {DEPLOYMENT_TARGET};
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = {BUNDLE_ID}.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = {APP};
+			}};
+			name = Debug;
+		}};
+		{uid('uitest:cfg:target:release')} /* Release */ = {{
+			isa = XCBuildConfiguration;
+			buildSettings = {{
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = {TEAM};
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = {DEPLOYMENT_TARGET};
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = {BUNDLE_ID}.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = {APP};
+				VALIDATE_PRODUCT = YES;
+			}};
+			name = Release;
+		}};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -366,6 +541,15 @@ pbxproj = f"""// !$*UTF8*$!
 			buildConfigurations = (
 				{uid('cfg:target:debug')} /* Debug */,
 				{uid('cfg:target:release')} /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		}};
+		{uid('uitest:cfglist:target')} /* Build configuration list for PBXNativeTarget "{UITEST_TARGET}" */ = {{
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				{uid('uitest:cfg:target:debug')} /* Debug */,
+				{uid('uitest:cfg:target:release')} /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -425,7 +609,20 @@ scheme = f"""<?xml version="1.0" encoding="UTF-8"?>
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "{uid('uitest:target')}"
+               BuildableName = "{UITEST_TARGET}.xctest"
+               BlueprintName = "{UITEST_TARGET}"
+               ReferencedContainer = "container:{APP}.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <StoreKitConfigurationFileReference
+         identifier = "../../{APP}/{APP}.storekit">
+      </StoreKitConfigurationFileReference>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -447,6 +644,9 @@ scheme = f"""<?xml version="1.0" encoding="UTF-8"?>
             ReferencedContainer = "container:{APP}.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <StoreKitConfigurationFileReference
+         identifier = "../../{APP}/{APP}.storekit">
+      </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

@@ -37,7 +37,7 @@ struct Insights {
         emotions = counts
             .sorted { $0.value != $1.value ? $0.value > $1.value : $0.key < $1.key }
             .prefix(5)
-            .map { EmotionCount(name: $0.key, count: $0.value) }
+            .map { EmotionCount(name: Emotion.displayName(for: $0.key), count: $0.value) }
 
         let withAction = month.filter(\.hasAction)
         actionRate = withAction.isEmpty
@@ -56,7 +56,11 @@ struct Insights {
 
     private static func makeHeadline(current: [MoyaEntry], thisWeek: Period, lastWeek: Period) -> String {
         guard thisWeek.count > 0, let now = thisWeek.averageIntensity else {
-            return "この7日間はまだ記録がありません。もやもやしたら、いつでも書いてみて。"
+            return NSLocalizedString(
+                "insights.headline.empty",
+                value: "この7日間はまだ記録がありません。もやもやしたら、いつでも書いてみて。",
+                comment: "Insights headline when there is nothing to show yet"
+            )
         }
 
         let counts = current.flatMap(\.emotions).reduce(into: [String: Int]()) { $0[$1, default: 0] += 1 }
@@ -64,19 +68,37 @@ struct Insights {
 
         var sentences: [String] = []
         if let top = top {
-            sentences.append("この7日間は「\(top)」が多めでした。")
+            sentences.append(String(
+                format: NSLocalizedString("insights.headline.top_emotion", value: "この7日間は「%@」が多めでした。", comment: "Most common emotion this week"),
+                Emotion.displayName(for: top)
+            ))
         } else {
-            sentences.append("この7日間に\(thisWeek.count)件、向き合いました。")
+            sentences.append(String(
+                format: NSLocalizedString("insights.headline.count_only", value: "この7日間に%d件、向き合いました。", comment: "Entry count this week, no dominant emotion"),
+                thisWeek.count
+            ))
         }
 
         if let before = lastWeek.averageIntensity {
             let delta = now - before
             if delta <= -0.5 {
-                sentences.append("もやもやの濃さは先週より下がっています。")
+                sentences.append(NSLocalizedString(
+                    "insights.headline.trend_down",
+                    value: "もやもやの濃さは先週より下がっています。",
+                    comment: "Intensity trending down vs last week"
+                ))
             } else if delta >= 0.5 {
-                sentences.append("もやもやの濃さは先週より上がっています。ゆっくり休んでね。")
+                sentences.append(NSLocalizedString(
+                    "insights.headline.trend_up",
+                    value: "もやもやの濃さは先週より上がっています。ゆっくり休んでね。",
+                    comment: "Intensity trending up vs last week"
+                ))
             } else {
-                sentences.append("もやもやの濃さは先週と同じくらいです。")
+                sentences.append(NSLocalizedString(
+                    "insights.headline.trend_flat",
+                    value: "もやもやの濃さは先週と同じくらいです。",
+                    comment: "Intensity about the same as last week"
+                ))
             }
         }
         return sentences.joined()

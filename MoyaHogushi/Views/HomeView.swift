@@ -152,8 +152,8 @@ struct HomeView: View {
         }
     }
 
-    private func sectionTitle(_ text: String) -> some View {
-        Text(text)
+    private func sectionTitle(_ key: LocalizedStringKey) -> some View {
+        Text(key)
             .font(.system(.subheadline, design: .rounded).weight(.bold))
             .foregroundColor(Theme.secondaryText)
     }

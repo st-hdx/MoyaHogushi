@@ -27,8 +27,21 @@
 		D21A26D827C6ED2E1003D581 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FFE31750D8ADFE2498AEA4 /* SettingsView.swift */; };
 		67FB9D6CDA0AA4A2238ED7CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A84B6AC6E4588B9D7C1EFE2 /* Assets.xcassets */; };
 		5B6CA05334847A4ECC3FD6F9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34F25C1A1C704F8B1762B68F /* Preview Assets.xcassets */; };
+		C1297936A69248C4C1C8BFB5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3084F2E3A3A5C931812C4379 /* Localizable.strings */; };
 		CD2BA4393F957CA901CD340A /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = D0DA94B54A9D3ED9CDA64C2B /* RevenueCat */; };
+		DFA7A66D78D7F643D54609E8 /* MoyaHogushiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D443DEDFCBAB624193381E /* MoyaHogushiUITests.swift */; };
+		810CB8C3C5A29C9352B8D04C /* MoyaHogushiUITestsEN.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1B46ADBABBB22F5A035A14 /* MoyaHogushiUITestsEN.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E5D6F93D300199EE3EE73ACD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9EEAB3379FB1A941DA1F1141 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FFA47CE36814B2F527A16AD9;
+			remoteInfo = MoyaHogushi;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		611FF1D52FBAA2AA25A865DA /* MoyaHogushi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoyaHogushi.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,6 +66,11 @@
 		8A84B6AC6E4588B9D7C1EFE2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A82E518A64212A7C09BD1983 /* MoyaHogushi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MoyaHogushi.entitlements; sourceTree = "<group>"; };
 		34F25C1A1C704F8B1762B68F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E83FFD137DB9A6845E26E3AB /* MoyaHogushiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoyaHogushiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6D443DEDFCBAB624193381E /* MoyaHogushiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaHogushiUITests.swift; sourceTree = "<group>"; };
+		FD1B46ADBABBB22F5A035A14 /* MoyaHogushiUITestsEN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaHogushiUITestsEN.swift; sourceTree = "<group>"; };
+		E41112BDDC9A996F8152BC09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E8D57067ECC8650B47293A58 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +82,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6A7A72CAEF005B4B8813F14A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -71,14 +96,26 @@
 			isa = PBXGroup;
 			children = (
 				99A9E3D86A15577C7F70E779 /* MoyaHogushi */,
+				744D7FBE27764A60AA9081E3 /* MoyaHogushiUITests */,
 				559BC3E086C63B77A914F5A2 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		744D7FBE27764A60AA9081E3 /* MoyaHogushiUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F6D443DEDFCBAB624193381E /* MoyaHogushiUITests.swift */,
+				FD1B46ADBABBB22F5A035A14 /* MoyaHogushiUITestsEN.swift */,
+			);
+			name = MoyaHogushiUITests;
+			path = MoyaHogushiUITests;
 			sourceTree = "<group>";
 		};
 		559BC3E086C63B77A914F5A2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				611FF1D52FBAA2AA25A865DA /* MoyaHogushi.app */,
+				E83FFD137DB9A6845E26E3AB /* MoyaHogushiUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -93,6 +130,7 @@
 				8A84B6AC6E4588B9D7C1EFE2 /* Assets.xcassets */,
 				A82E518A64212A7C09BD1983 /* MoyaHogushi.entitlements */,
 				0EB288C73061F8DCD85963FE /* Preview Content */,
+				3084F2E3A3A5C931812C4379 /* Localizable.strings */,
 			);
 			path = MoyaHogushi;
 			sourceTree = "<group>";
@@ -158,6 +196,24 @@
 			productReference = 611FF1D52FBAA2AA25A865DA /* MoyaHogushi.app */;
 			productType = "com.apple.product-type.application";
 		};
+		0FE4F14331615AC4CC86557D /* MoyaHogushiUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 217A51FC595AE9CF309A5E4C /* Build configuration list for PBXNativeTarget "MoyaHogushiUITests" */;
+			buildPhases = (
+				73CE6468A545A341FC99D550 /* Sources */,
+				6A7A72CAEF005B4B8813F14A /* Frameworks */,
+				54B4C9F92FE07E9E1CA698BE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				95880A3AA7A585E7D12B461F /* PBXTargetDependency */,
+			);
+			name = MoyaHogushiUITests;
+			productName = MoyaHogushiUITests;
+			productReference = E83FFD137DB9A6845E26E3AB /* MoyaHogushiUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -179,6 +235,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				ja,
+				en,
 				Base,
 			);
 			mainGroup = 07338440EEF9F4092E199742;
@@ -190,6 +247,7 @@
 			projectRoot = "";
 			targets = (
 				FFA47CE36814B2F527A16AD9 /* MoyaHogushi */,
+				0FE4F14331615AC4CC86557D /* MoyaHogushiUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -201,6 +259,14 @@
 			files = (
 				5B6CA05334847A4ECC3FD6F9 /* Preview Assets.xcassets in Resources */,
 				67FB9D6CDA0AA4A2238ED7CC /* Assets.xcassets in Resources */,
+				C1297936A69248C4C1C8BFB5 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		54B4C9F92FE07E9E1CA698BE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,7 +298,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		73CE6468A545A341FC99D550 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFA7A66D78D7F643D54609E8 /* MoyaHogushiUITests.swift in Sources */,
+				810CB8C3C5A29C9352B8D04C /* MoyaHogushiUITestsEN.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		95880A3AA7A585E7D12B461F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MoyaHogushi;
+			target = FFA47CE36814B2F527A16AD9 /* MoyaHogushi */;
+			targetProxy = E5D6F93D300199EE3EE73ACD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3084F2E3A3A5C931812C4379 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E41112BDDC9A996F8152BC09 /* en */,
+				E8D57067ECC8650B47293A58 /* ja */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		699DFE3854EBEDFC4D7BC815 /* Debug */ = {
@@ -411,6 +507,53 @@
 			};
 			name = Release;
 		};
+		F47237B875E4AB03E9AB03BC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y5RBKYD4FY;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pandagiken.moyahogushi.app.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = MoyaHogushi;
+			};
+			name = Debug;
+		};
+		71CA94D11C16031811C32F92 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y5RBKYD4FY;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pandagiken.moyahogushi.app.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = MoyaHogushi;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -428,6 +571,15 @@
 			buildConfigurations = (
 				41263601F7F73B0404B6FF6C /* Debug */,
 				0ABE74AD4BA6CD62B85C51D3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		217A51FC595AE9CF309A5E4C /* Build configuration list for PBXNativeTarget "MoyaHogushiUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F47237B875E4AB03E9AB03BC /* Debug */,
+				71CA94D11C16031811C32F92 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

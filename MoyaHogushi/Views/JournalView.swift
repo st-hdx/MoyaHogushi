@@ -52,7 +52,7 @@ struct JournalView: View {
             VStack(spacing: 8) {
                 Image(systemName: "lock.fill")
                     .foregroundColor(Theme.accent)
-                Text("さらに\(hiddenCount)件の記録があります")
+                Text(String(format: NSLocalizedString("journal.locked_more", value: "さらに%d件の記録があります", comment: "Locked entries card title"), hiddenCount))
                     .font(.system(.subheadline, design: .rounded).weight(.semibold))
                     .foregroundColor(Theme.text)
                 Text("Proで、これまでの記録をすべてさかのぼれます")
@@ -77,10 +77,10 @@ struct StatsRow: View {
 
     var body: some View {
         HStack(spacing: 8) {
-            pill("全 \(store.entries.count) 件")
-            pill("今週 \(store.thisWeekCount) 件")
+            pill(String(format: NSLocalizedString("journal.total_count", value: "全 %d 件", comment: "Total entry count pill"), store.entries.count))
+            pill(String(format: NSLocalizedString("journal.week_count", value: "今週 %d 件", comment: "This week's entry count pill"), store.thisWeekCount))
             if let top = store.topEmotion {
-                pill("多い感じ: \(top)")
+                pill(String(format: NSLocalizedString("journal.top_emotion", value: "多い感じ: %@", comment: "Most common emotion pill"), Emotion.displayName(for: top)))
             }
             Spacer(minLength: 0)
         }
@@ -117,7 +117,7 @@ struct EntryCard: View {
                     }
                 }
                 .accessibilityElement(children: .ignore)
-                .accessibilityLabel("もやもやの濃さ \(entry.intensity)")
+                .accessibilityLabel(String(format: NSLocalizedString("journal.intensity_label", value: "もやもやの濃さ %d", comment: "Intensity dots accessibility label"), entry.intensity))
             }
 
             Text(entry.text)
@@ -129,7 +129,7 @@ struct EntryCard: View {
             if !entry.emotions.isEmpty {
                 FlowLayout(spacing: 6) {
                     ForEach(entry.emotions, id: \.self) { emotion in
-                        Text(emotion)
+                        Text(Emotion.displayName(for: emotion))
                             .font(.system(.caption2, design: .rounded))
                             .foregroundColor(Theme.secondaryText)
                             .padding(.horizontal, 9)
@@ -187,7 +187,7 @@ struct ActionRow: View {
             .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
         }
         .buttonStyle(.plain)
-        .accessibilityLabel("最初の一歩: \(entry.action)")
-        .accessibilityValue(entry.actionDone ? "完了" : "未完了")
+        .accessibilityLabel(String(format: NSLocalizedString("journal.first_step_label", value: "最初の一歩: %@", comment: "Action row accessibility label"), entry.action))
+        .accessibilityValue(entry.actionDone ? NSLocalizedString("完了", comment: "Action done") : NSLocalizedString("未完了", comment: "Action not done"))
     }
 }
