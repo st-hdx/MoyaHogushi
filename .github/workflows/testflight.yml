@@ -58,6 +58,9 @@ jobs:
         run: |
           mkdir -p ~/private_keys
           echo "$PRIVATE_KEY" > ~/private_keys/AuthKey_${KEY_ID}.p8
+          # デバッグ: どのAPIキーが使われているか切り分けるため、Key IDの先頭4文字だけを出す
+          # (フルの値はGitHub側でマスクされるが、部分文字列は漏れるため先頭4文字に留める)
+          echo "KEY_ID prefix: ${KEY_ID:0:4}"
 
       - name: 配布用証明書とプロビジョニングプロファイルを配置
         env:
