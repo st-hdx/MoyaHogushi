@@ -4,7 +4,7 @@ import RevenueCat
 
 /// サブスクリプション(Pro)の状態管理。RevenueCat のキー未設定でもアプリは無料版として動く。
 final class PurchaseManager: ObservableObject {
-    static let apiKey = "appl_REPLACE_WITH_REVENUECAT_PUBLIC_KEY"
+    static let apiKey = "appl_XjCgmyZfPDtVEVdfBjXBhcyofiq"
     static let entitlementID = "MoyaHogushi Pro"
     static let freeEntryLimit = 10
 
